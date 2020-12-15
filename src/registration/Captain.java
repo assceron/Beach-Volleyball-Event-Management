@@ -5,7 +5,10 @@ public class Captain extends Player{
 	
 	public Captain(String name, String surname, String email, String phone) {
 		super(name, surname, email, phone);
-		// TODO Auto-generated constructor stub
+	}
+	
+	public Captain(int playerID, String name, String surname, String email, String phone) {
+		super(playerID,name, surname, email, phone);
 	}
 	
 	public int getMoneyPaid() {

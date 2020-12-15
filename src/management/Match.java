@@ -3,25 +3,22 @@ package management;
 import registration.Team;
 
 public class Match {
-	private String matchID;
+	private int matchID;
 	private Team team1;
 	private Team team2;
-	private int scoreT1;
-	private int scoreT2;
 	
-	public Match(String matchID, Team team1, Team team2, int scoreT1, int scoreT2) {
+	public Match(int matchID, Team team1, Team team2) {
 		this.matchID = matchID;
 		this.team1 = team1;
 		this.team2 = team2;
-		this.scoreT1 = scoreT1;
-		this.scoreT2 = scoreT2;
+
 	}
 
-	public String getMatchID() {
+	public int getMatchID() {
 		return matchID;
 	}
 
-	public void setMatchID(String matchID) {
+	public void setMatchID(int matchID) {
 		this.matchID = matchID;
 	}
 
@@ -41,26 +38,9 @@ public class Match {
 		this.team2 = team2;
 	}
 
-	public int getScoreT1() {
-		return scoreT1;
-	}
-
-	public void setScoreT1(int scoreT1) {
-		this.scoreT1 = scoreT1;
-	}
-
-	public int getScoreT2() {
-		return scoreT2;
-	}
-
-	public void setScoreT2(int scoreT2) {
-		this.scoreT2 = scoreT2;
-	}
-
 	@Override
 	public String toString() {
-		return "Match [matchID=" + matchID + ", team1=" + team1 + ", team2=" + team2 + ", scoreT1=" + scoreT1
-				+ ", scoreT2=" + scoreT2 + "]";
+		return team1.getTeamName() + " VS " + team2.getTeamName() + "\n";
 	}
 	
 	

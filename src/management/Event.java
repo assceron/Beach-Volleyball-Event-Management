@@ -1,54 +1,73 @@
 package management;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
+
+import databases.Database;
+import registration.Team;
 
 public class Event {
-	private String eventID;
-	private Date   eventDate;
-	private String dateDay;
-	private ArrayList<Match> matches;
+	private String gameNight;
+	private ArrayList<Match> matchesR1;
+	private ArrayList<Match> matchesR2;
+	private ArrayList<Match> matchesR3;
+
+	private ArrayList<Team> teams; 
+
 	
-	public Event(String eventID, Date eventDate, String dateDay, ArrayList<Match> matches) {
-		super();
-		this.eventID = eventID;
-		this.eventDate = eventDate;
-		this.dateDay = dateDay;
-		this.matches = matches;
+	public Event(String gameNight) {
+		Database db = new Database();
+		teams = db.selectAllTeams(gameNight);
+		matchesR1 = createRound(teams);
+		matchesR2 = createRound(teams);
+		matchesR3 = createRound(teams);
+		
+		this.gameNight = gameNight;
 	}
 
-	public String getEventID() {
-		return eventID;
+	public String getgameNight() {
+		return gameNight;
 	}
 
-	public void setEventID(String eventID) {
-		this.eventID = eventID;
+	public void setgameNight(String dateDay) {
+		this.gameNight = dateDay;
 	}
 
-	public Date getEventDate() {
-		return eventDate;
-	}
 
-	public void setEventDate(Date eventDate) {
-		this.eventDate = eventDate;
-	}
-
-	public String getDateDay() {
-		return dateDay;
-	}
-
-	public void setDateDay(String dateDay) {
-		this.dateDay = dateDay;
-	}
-
-	public ArrayList<Match> getMatches() {
+	
+	public ArrayList<Match> createRound(ArrayList<Team> teams){
+		Collections.shuffle(teams);
+		Team t1,t2;
+		ArrayList<Match> matches = new ArrayList<>();
+		int countMatches = 0;
+		
+		for (int i=0; i< teams.size(); i+=2) {	
+			
+			if(i+1 >= teams.size()) {
+				/* The last team of the collection will be on a bye*/
+				matches.add(new Match(++countMatches, teams.get(i), new Team(-1,"-",null,"-")));
+				break;
+			}
+			
+		    t1 = teams.get(i);
+		    t2 = teams.get(i+1);
+		    matches.add(new Match(++countMatches, t1,t2));
+		}
+		
+		
 		return matches;
 	}
 
-	public void setMatches(ArrayList<Match> matches) {
-		this.matches = matches;
+	@Override
+	public String toString() {
+		return "Event - " + gameNight + "\nround1\n" + matchesR1 + "\n round2 \n" + matchesR2
+				+ "\n round3 \n" + matchesR3;
 	}
 	
-	
+	/*
+	public static void main(String[] args) {
+		Event e = new Event("tuesday");
+		System.out.println(e);
+	}
+	*/
 }
-
