@@ -4,25 +4,25 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
+import registration.Captain;
 import registration.Player;
 import registration.Team;  
 
 public class Database {
 	private static String dbName = "database.db";
 	private static final String JDBC_URL = "jdbc:sqlite:";
-    private Connection conn = null;  
+    private static Connection conn = null;  
     
 	 /** 
      * Connect to a database 
      */  
-    private Connection connect() {  
+    private static Connection connect() {  
     	String url =  JDBC_URL + dbName;
 
         try {  
-            this.conn = DriverManager.getConnection(url);  
+            conn = DriverManager.getConnection(url);  
         } catch (SQLException e) {  
             System.out.println(e.getMessage());  
         }  
@@ -83,7 +83,6 @@ public class Database {
      * Insert team into the table
      * */
     public int insertTeam(Team team) {
-    	System.out.println(team);
     	String query = prepareInsert(team.getPlayers().size());
     	int teamID = -1;
     	try {
@@ -138,6 +137,51 @@ public class Database {
     }
     
     /**
+     * Select all the teams
+     */
+    
+    public ArrayList<Team> selectAllTeams(String gameNight){
+    	ArrayList<Team> teams = new ArrayList<>();
+    	String query = "SELECT * FROM teams WHERE gameNight = ?";
+    	
+    	try {
+    		Connection conn = connect();
+    		PreparedStatement pstmt = conn.prepareStatement(query);
+    		pstmt.setString(1, gameNight);
+    		ResultSet rs = pstmt.executeQuery();  
+    		
+    		
+    		while(rs.next()) {
+    			ArrayList<Player> players = new ArrayList<Player>();
+    			String teamName = rs.getString("teamName");
+    			int teamID = rs.getInt("teamID");
+    			
+    			int captainID = rs.getInt("captainID");
+    			Captain captain = (Captain) selectPlayer(captainID,true);
+    			players.add(captain);
+    			
+    			int playerID2 = rs.getInt("playerID2");
+    			Player p2 = selectPlayer(playerID2,false);
+    			players.add(p2);
+    			
+    			int playerID3 = rs.getInt("playerID3");
+    			Player p3 = selectPlayer(playerID3,false);
+    			players.add(p3);
+    			
+    			int playerID4 = rs.getInt("playerID4");
+    			Player p4 = selectPlayer(playerID4,false);
+    			players.add(p4);
+    			
+    			teams.add(new Team(teamID,teamName,players,gameNight));
+    		}
+
+    	}catch(SQLException e) {
+            System.out.println(e.getMessage());  
+    	  }
+    	return teams;
+    }
+    
+    /**
      * Create Players table
      * */
     public void createPlayersDB() {  
@@ -189,7 +233,7 @@ public class Database {
      * Select a player from the table
      * */
     
-    public int selectPlayer(Player p) {
+    public int selectPlayerID(Player p) {
     	String query = "SELECT playerID FROM players WHERE name=? AND surname = ? AND phone = ?";
     	int playerID=-1;
     	
@@ -214,6 +258,34 @@ public class Database {
     	return playerID;
     }
     
+    public static Player selectPlayer(int playerID, boolean isCaptain) {
+    	String query = "SELECT * FROM players WHERE playerID=?";
+		Player p = null;
+
+    	try {
+    		Connection conn = connect();
+    		PreparedStatement pstmt = conn.prepareStatement(query);
+    		pstmt.setInt(1, playerID);
+    		ResultSet rs = pstmt.executeQuery();
+    		
+    		while(rs.next()) {
+    			String name=rs.getString("name");
+    			String surname = rs.getString("surname");
+    			String email = rs.getString("email");
+    			String phone = rs.getString("phone");
+    			
+    			if(isCaptain)
+    				p = new Captain(playerID,name,surname,email,phone);
+    			else
+    				p = new Player(playerID,name,surname,email,phone);
+    		}
+    		
+    	}catch(SQLException e) {
+            System.out.println(e.getMessage());  
+    	  }
+    	
+    	return p;
+    }
     /*
     public static void main(String[] args) {
     	Database db = new Database();
@@ -271,10 +343,12 @@ public class Database {
     /*
     public static void main(String[] args) {
     	Database db = new Database();
-    	Player p1 = new Player("m","e","me","123");
-    	System.out.println(db.selectPlayer(p1));
+    	
+    	ArrayList<Team> teams = db.selectAllTeams("tuesday");
+    	System.out.println(teams);
 
     }
     */
+    
 }
 
