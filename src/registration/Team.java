@@ -1,9 +1,6 @@
 package registration;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
-import databases.Database;
 
 public class Team {
 	private int teamID;
@@ -58,8 +55,7 @@ public class Team {
 
 	@Override
 	public String toString() {
-		return "Team [teamName=" + teamName + ", players=" + players + ", gameNight=" + gameNight
-				+ "]";
+		return teamName+"\n";
 	}
 	
 }

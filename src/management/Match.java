@@ -43,5 +43,9 @@ public class Match {
 		return team1.getTeamName() + " VS " + team2.getTeamName() + "\n";
 	}
 	
+	public String toStringID() {
+		return team1.getTeamID() +""+ team2.getTeamID();
+	}
+	
 	
 }

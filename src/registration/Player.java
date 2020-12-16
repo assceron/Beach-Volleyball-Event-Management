@@ -1,9 +1,5 @@
 package registration;
 
-import java.util.Scanner;
-
-import databases.Database;
-
 public class Player {
 	protected int playerID; 
 	protected String name;
@@ -62,7 +58,7 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player: " + name  + " "+ surname + "\nemail: " + email + "  phone: " + phone;
+		return "Player: " + name  + " "+ surname + "\nemail: " + email + "\nphone: " + phone;
 	} 
 	
     public String validatePlayer() {

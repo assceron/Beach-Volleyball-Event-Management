@@ -1,29 +1,28 @@
 package registration;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
 
-import databases.Database;
+import databases.PlayersDB;
+import databases.TeamsDB;
 
 public class TeamRegistration {
-	private Database db = new Database();
-
+	private TeamsDB teamsDB = new TeamsDB();
+	private PlayersDB playersDB = new PlayersDB();
 
 	private int registerNewPlayer(Player p) {
-		db.createPlayersDB(); // TOMOVE
+		playersDB.createPlayersDB(); // TOMOVE
 		
-		int playerID = db.selectPlayerID(p);
+		int playerID = playersDB.selectPlayerID(p);
 		
 		if(playerID < 0) 
-			playerID = db.insertPlayer(p);
+			playerID = playersDB.insertPlayer(p);
 		
 		
 		return playerID;
 	}
 	
 	public int registerNewTeam(String teamName, String gameNight, ArrayList<Player> players) {
-		db.createTeamsDB(); //TO MOVE
+		teamsDB.createTeamsDB(); //TO MOVE
 		int teamID = -1;
 
 		if(!this.teamExistent(teamName)) {
@@ -31,19 +30,12 @@ public class TeamRegistration {
 			for(Player p:players) 
 				p.setPlayerID(registerNewPlayer(p));	
 			
-	    	teamID = db.insertTeam(new Team(teamName,players,gameNight));			
+	    	teamID = teamsDB.insertTeam(new Team(teamName,players,gameNight));			
 		}
     	return teamID;
 	}	
 	
 	public boolean teamExistent(String teamName) {
-		return db.selectTeam(teamName);
+		return teamsDB.selectTeam(teamName);
 	}
-	
-	/*
-	public static void main(String[] args) {
-		TeamRegistration tr = new TeamRegistration();
-		System.out.println(tr.isValidPhone("0478483536"));
-	}
-	*/
 }

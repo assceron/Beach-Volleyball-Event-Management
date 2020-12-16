@@ -17,9 +17,10 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import databases.Database;
+import databases.TeamsDB;
 
 public class TeamRegistrationFrame extends JFrame implements ActionListener{
+	
 	private TeamRegistration teamreg = new TeamRegistration();
     // Components of the Form 
     private Container c; 
@@ -60,20 +61,19 @@ public class TeamRegistrationFrame extends JFrame implements ActionListener{
     private JTextArea resadd; 
     
     private String dates[] 
-            = { "1", "2", "3", "4", "5", 
-                "6", "7", "8", "9", "10", 
+            = { "01", "02", "03", "04", "05", 
+                "06", "07", "08", "09", "10", 
                 "11", "12", "13", "14", "15", 
                 "16", "17", "18", "19", "20", 
                 "21", "22", "23", "24", "25", 
                 "26", "27", "28", "29", "30", 
                 "31" }; 
+    
     private String months[] 
-            = { "Jan", "feb", "Mar", "Apr", 
-                "May", "Jun", "July", "Aug", 
-                "Sup", "Oct", "Nov", "Dec" }; 
+            = { "Jan", "Dec"}; 
    
     private String years[] 
-            = { "2020","2021" }; 
+            = { "2020","2021"}; 
         
     
  // constructor, to initialize the components 
@@ -82,8 +82,8 @@ public class TeamRegistrationFrame extends JFrame implements ActionListener{
     { 
         setTitle("Team Registration Form"); 
         setBounds(300, 90, 900, 600); 
-        setDefaultCloseOperation(EXIT_ON_CLOSE); 
-        setResizable(false); 
+        //setDefaultCloseOperation(EXIT_ON_CLOSE); 
+        setResizable(false);
   
         c = getContentPane(); 
         c.setLayout(null); 
@@ -201,6 +201,7 @@ public class TeamRegistrationFrame extends JFrame implements ActionListener{
         						+ "/" + (String)year.getSelectedItem();
         	
         	String playersValidationString = validatePlayers(players);
+        	
         	if(!(playersValidationString.isEmpty())) {
         		tout.setText("\nRegistration failed.. Modify your information\n" + playersValidationString);
                 tout.setEditable(false); 
