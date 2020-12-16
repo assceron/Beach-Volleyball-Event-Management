@@ -1,8 +1,10 @@
 package registration;
 
-public class Registration {
+import databases.Database;
+
+public class Registration {	
 	public static void main(String[] args) throws Exception 
     { 
-        RegistrationFrame f = new RegistrationFrame(); 
+		TeamRegistrationFrame f = new TeamRegistrationFrame(); 
     } 
 }

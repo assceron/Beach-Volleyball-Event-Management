@@ -64,10 +64,10 @@ public class Event {
 				+ "\n round3 \n" + matchesR3;
 	}
 	
-	/*
+	
 	public static void main(String[] args) {
-		Event e = new Event("tuesday");
+		Event e = new Event("1/Jan/2020");
 		System.out.println(e);
 	}
-	*/
+	
 }

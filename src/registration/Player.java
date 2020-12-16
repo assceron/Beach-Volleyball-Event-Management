@@ -62,48 +62,46 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return "Player [playerID=" + playerID + ", name=" + name + ", surname=" + surname + ", email=" + email + ", phone=" + phone + "]";
-	}
+		return "Player: " + name  + " "+ surname + "\nemail: " + email + "  phone: " + phone;
+	} 
 	
-	private static Player createPlayer(boolean isCaptain) {		
-		Scanner input = new Scanner(System.in);
-		
-		System.out.print("Name: ");
-		String name = input.next();
-		
-		System.out.print("Surname: ");
-		String surname = input.next();
-		//control surname
-		
-		System.out.print("Email: ");
-		String email = input.next();
-		//Control email
-		
-		System.out.print("Phone: ");
-		String phone = input.next();
-		//control phone
-		
-		//CREATE a function checkPlayerDetails() before creating Player
-		if(isCaptain)
-			return new Captain(name,surname,email,phone);
-		
-		return new Player(name,surname,email,phone);
-		
-	}
-	
-	protected static Player registerNewPlayer(boolean isCaptain) {
-		Database db = new Database();
-		db.createPlayersDB(); // TOMOVE
-		Player p = createPlayer(isCaptain);
-		int playerID = db.selectPlayerID(p);
-		
-		if(playerID < 0)
-			playerID = db.insertPlayer(p);
-
-		p.setPlayerID(playerID);
-
-		return p;
-	}
-	
-	
+    public String validatePlayer() {
+    	String toReturn = "";
+    	if(!isValidName()) 
+    		toReturn += "Invalid name: " + name + "\n";
+    	
+    	if(!isValidName())
+    		toReturn += "Invalid surname: " + surname +"\n";
+    	
+    	if(!isValidEmailAddress())
+    		toReturn+= "Invalid email address: " + email +"\n";
+    	
+    	if(!isValidPhone())
+    		toReturn+="Invalid phone number: " + phone + "\n";
+    	
+    	return toReturn;
+    }
+    
+    private boolean isValidName() {
+    	if(name.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))
+    		return true;
+    	
+    	return false;
+    	
+    }
+    
+    private boolean isValidEmailAddress() {
+    	String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
+    }
+    
+    private boolean isValidPhone(){
+    	if (phone.matches("\\d{10}"))
+            return true;
+    	
+    	return false;
+    }
+    
 }

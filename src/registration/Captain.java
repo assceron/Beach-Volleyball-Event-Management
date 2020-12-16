@@ -22,6 +22,6 @@ public class Captain extends Player{
 	
 	@Override
 	public String toString() {
-		return "Captain [playerID=" + playerID + ", name=" + name + ", surname=" + surname + ", email=" + email + ", phone=" + phone + "]";
+		return "Captain: " + name + " " + surname + "\nemail=" + email + "  phone=" + phone;
 	}
 }
