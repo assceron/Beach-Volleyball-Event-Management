@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -119,9 +120,21 @@ public class EventFrame extends JFrame implements ActionListener{
         
     }
     
+    private String printMatches(ArrayList<Match> matches) {
+    	String toReturn = "";
+    	for(Match m : matches) {
+    		toReturn+=m.toString() + "\n";
+    		System.out.println(toReturn);
+    	}
+    	return toReturn;
+    }
     public void actionPerformed(ActionEvent e){ 
     	if(e.getSource() == choose) {
     		EventManagement em = new EventManagement();
+    		
+    		teams.setText("Event Details");
+    		matchesR1.setText("");
+    		matchesR1.setText("");
     		
     		String dog = (String)date.getSelectedItem() 
                     	  + "/" + (String)month.getSelectedItem() 
@@ -132,10 +145,9 @@ public class EventFrame extends JFrame implements ActionListener{
     			teams.setText(me.getMessage());
     			return;
     		}
-    		System.out.println(me.getEvent());
     		teams.setText(me.getEvent().getTeams());
-    		matchesR1.setText(me.getEvent().getMatchesR1().toString());
-    		matchesR2.setText(me.getEvent().getMatchesR2().toString());
+    		matchesR1.setText("Matches Round1\n\n" + printMatches(me.getEvent().getMatchesR1()));
+    		matchesR2.setText("Matches Round2\n\n" + printMatches(me.getEvent().getMatchesR2()));
 
     		teams.setEditable(false);
     		

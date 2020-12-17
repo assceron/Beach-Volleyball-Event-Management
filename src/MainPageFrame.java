@@ -1,5 +1,3 @@
-package registration;
-
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -10,12 +8,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import management.EventFrame;
+import registration.TeamRegistrationFrame;
 
 public class MainPageFrame extends JFrame implements ActionListener{
     private Container c; 
     private JLabel title; 
     private static final long serialVersionUID = 1L;
     private JButton reg;
+    private JButton reg2;
     private JButton event;
 
 	public MainPageFrame() {
@@ -41,6 +41,13 @@ public class MainPageFrame extends JFrame implements ActionListener{
         reg.addActionListener(this); 
         c.add(reg);
                
+        reg2 = new JButton("Register an Existent Team"); 
+        reg2.setFont(new Font("Arial", Font.PLAIN, 15)); 
+        reg2.setSize(300, 50); 
+        reg2.setLocation(150, 300); 
+        reg2.addActionListener(this); 
+        c.add(reg2);
+        
         event = new JButton("Event Details"); 
         event.setFont(new Font("Arial", Font.PLAIN, 15)); 
         event.setSize(200, 50); 
@@ -59,6 +66,11 @@ public class MainPageFrame extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e){
         if (e.getSource() == reg) {
     		TeamRegistrationFrame trf = new TeamRegistrationFrame(); 
+        }
+        
+        if (e.getSource() == reg2) {
+        	//TODO
+        	//Retrieve data from database about TeamName
         }
         if(e.getSource() == event) {
         	EventFrame ev = new EventFrame();

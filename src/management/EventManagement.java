@@ -45,20 +45,24 @@ public class EventManagement {
 		if(diff > 7) 
 			return new MessageEvent(null, "Registration still open. ");
 
-		else{
-			event = eventDB.selectEvent(dateOfGame);
+		
+		event = eventDB.selectEvent(dateOfGame);
 			
-			if(event != null) { // ALREADY IN DB
-				return new MessageEvent(event, "Event details:\n");
-			}
-			
-			else { //NOT IN DB
-				HashMap<Integer,Team> teams = teamsDB.selectAllTeams(dateOfGame);
-				event = new Event(dateOfGame,teams);
-				eventDB.insertEvent(event);
-				return new MessageEvent(event, "Event details:\n");
-			}
+		if(event != null) { // ALREADY IN DB
+			return new MessageEvent(event, "Event details:\n + event");
 		}
-	}
+		
+		else { //NOT IN DB
+			HashMap<Integer,Team> teams = teamsDB.selectAllTeams(dateOfGame);
+			if(teams.size()==0)
+				return new MessageEvent(null, "No teams registered for this days");
+			
+			event = new Event(dateOfGame,teams);
+			eventDB.insertEvent(event);
+			return new MessageEvent(event, "Event details:\n + event");
+		}
+	}			
+			
+	
 	
 }

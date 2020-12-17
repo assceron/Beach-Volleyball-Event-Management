@@ -10,7 +10,7 @@ public class TeamRegistration {
 	private PlayersDB playersDB = new PlayersDB();
 
 	private int registerNewPlayer(Player p) {
-		playersDB.createPlayersDB(); // TOMOVE
+		playersDB.createPlayersDB(); 
 		
 		int playerID = playersDB.selectPlayerID(p);
 		

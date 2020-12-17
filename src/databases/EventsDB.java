@@ -97,19 +97,16 @@ public class EventsDB {
     		pstmt.setString(1, dateOfGame);
     		    		
     		ResultSet rs = pstmt.executeQuery();  
-    
-    		if(!rs.next())
-    			return null;
     		
+    		if(!rs.next()) {
+    			return null;
+    		}
     		HashMap<Integer,Team> teams = teamsDB.selectAllTeams(dateOfGame);
     		
-    		String round1="";
-    		String round2="";
-    		while(rs.next()) {
-    			round1= rs.getString("round1");
-    			round2= rs.getString("round2");
-    		}
+    		String round1=rs.getString("round1");;
+    		String round2= rs.getString("round2");
     		
+
 			return new Event(dateOfGame,round1,round2,teams);
     	}catch(SQLException e) {
             System.out.println(e.getMessage());  

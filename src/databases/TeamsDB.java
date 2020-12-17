@@ -183,4 +183,3 @@ public class TeamsDB {
     	return teams;
     }
 }
-
