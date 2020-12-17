@@ -16,9 +16,9 @@
 The application manages Beach Volleyball social events from December 2020 to January 2021.
 
 It has 3 main tasks. Given a specific date:
-  1. Registering new teams for a beach volleyball game.
-  2. Registering existent teams that have already partecipated on a previous date.
-  3. Show the details of the event, once the registration are closed. The registration closes 7 days before the date of the game. 
+  1. Register new teams for a beach volleyball game.
+  2. Register existent teams that have already partecipated on a previous date.
+  3. Show the details of the event. The event details are available one week before the date of the event. 
 
 ### Built With
 
@@ -49,13 +49,14 @@ The application will show a GUI with the 3 different options mentioned above.
 ## Usage
 * Register new team
 
-After entering the date of the game and conferming the team name is available (not been used by other teams), the form requires the information of the two players.
-
+After entering the date of the game and conferming the team name is available (not been used by other teams), the form requires the information of the two players. 
  ![teamreg-image]
  
-* Register existent team
+* Register existent team 
 
-It allows the registration of a team already present in the database. *NOT IMPLEMENTED*
+*NOT IMPLEMENTED*
+
+It allows the registration of a team already present in the database. 
 
 * Event Details
 
@@ -68,9 +69,10 @@ The details include the team partecipating in that event. Every event has 2 roun
 ## Roadmap
 - `main.MainPage` - Entry Point of the application
 - `registration.TeamRegistrationFrame` - Defines frame for Registration Form, including checks on user input (name, phone, email, etc.)
-- `registration.TeamRegistration` - Register team and players in the database
-- `management.EventManagement` - Create and register new event in database, or retrieve event details if the event has already been created  
+- `registration.TeamRegistration` - Registers team and players in the database
+- `management.EventManagement` - Creates and registers new event in database, or retrieve event details if the event has already been created  
 - `databases` - Package including database management for teams, players and events 
+- `main.TeamRegistrationBulk` - Inserts 10 teams in the database for testing 
 
 <!-- CONTACT -->
 ## Contact
